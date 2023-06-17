@@ -1,0 +1,34 @@
+version: "3.5"
+services:
+  postgres:
+    container_name: Escolas
+    image: postgres:12
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: escolas
+      PGDATA: /data/postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./backupPostgres:/data/postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_CONFIG_SESSION_EXPIRATION_TIME: "365"
+      PGADMIN_MASTER_PASSWORD_REQUIRED: "false"
+      PGADMIN_DEFAULT_EMAIL: escolas@admin.com
+      PGADMIN_DEFAULT_PASSWORD: masterkey123456
+    ports:
+      - 8085:80    
+#    volumes:
+#    - ./pgadmin.json:/pgadmin4/servers.json:ro
+
+networks:
+  default:
+    external:
+      name: web
+
+volumes:
+  postgres:
