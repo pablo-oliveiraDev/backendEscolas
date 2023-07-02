@@ -11,49 +11,44 @@ datasource db {
 }
 
 model TipoDePessoa {
-  id                 Int                  @id @default(autoincrement())
-  pessoa             String
-  created_at         DateTime             @default(now())
-  alunoEndereco      AlunoEndereco[]      @relation("tipodepessoa")
-  AlunoPagto         AlunoPagto[]
-  AlunoDadosEscolar  AlunoDadosEscolar[]
-  pessoaDadosEscolar PessoaDadosEscolar[]
-  alunoDadosPessoal  AlunoDadosPessoal[]
+  id                  Int                   @id @default(autoincrement())
+  pessoa              String
+  created_at          DateTime              @default(now())
+  pessoaDadosEscolar  PessoaDadosEscolar[]
+  PessoaDadosPessoais PessoaDadosPessoais[]
 
   @@map("tipoDePessoas")
 }
 
 model DadosDocumento {
-  id                 Int                  @id @default(autoincrement())
-  nome               String
-  Sobrenome          String
-  email              String
-  Cpf                String
-  Rg                 String
-  idade              Int
-  dataNascimento     String
-  statusCadastro     Boolean
-  tel                String
-  created_at         DateTime             @default(now())
-  deleted_at         String
-  tipoDePessoaId     Int
-  alunoDadosPessoal  AlunoDadosPessoal[]
-  pessoaDadosEscolar PessoaDadosEscolar[]
+  id                  Int                   @id @default(autoincrement())
+  nome                String
+  Sobrenome           String
+  email               String
+  Cpf                 String
+  Rg                  String
+  idade               Int
+  dataNascimento      String
+  statusCadastro      Boolean
+  tel                 String
+  created_at          DateTime              @default(now())
+  deleted_at          String
+  pessoaDadosEscolar  PessoaDadosEscolar[]
+  pessoaDadosPessoais PessoaDadosPessoais[]
 
   @@map("dadosDocumentos")
 }
 
 model Endereco {
-  id                 Int                  @id @default(autoincrement())
-  cep                String
-  rua                String
-  bairro             String
-  cidade             String
-  numero             Int
-  complemento        String
-  tipoDePessoaId     Int
-  alunoEndereco      AlunoEndereco[]      @relation("endereco")
-  pessoaDadosEscolar PessoaDadosEscolar[]
+  id                  Int                   @id @default(autoincrement())
+  cep                 String
+  rua                 String
+  bairro              String
+  cidade              String
+  numero              Int
+  complemento         String
+  pessoaDadosEscolar  PessoaDadosEscolar[]
+  pessoaDadosPessoais PessoaDadosPessoais[]
 
   @@map("enderecos")
 }
@@ -64,42 +59,41 @@ model Especilidade {
   tipoDePessoaId     Int
   idEndereco         Int
   idDadosPessoais    Int
-  PessoaDadosEscolar PessoaDadosEscolar[]
+  pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("especialidades")
 }
 
 model PagtoMes {
-  id             Int          @id @default(autoincrement())
-  valor          Decimal      @db.Decimal(10, 2)
-  dataPagto      String?
-  dataVencimento String
-  status         Boolean      @default(false)
-  tipoDePessoaId Int
-  AlunoPagto     AlunoPagto[]
+  id                  Int                   @id @default(autoincrement())
+  valor               Decimal               @db.Decimal(10, 2)
+  dataPagto           String?
+  dataVencimento      String
+  status              Boolean               @default(false)
+  pessoaDadosPessoais PessoaDadosPessoais[]
 
   @@map("pagtosMes")
 }
 
 model Disciplina {
-  id                 Int                  @id @default(autoincrement())
-  nome               String
-  tipoDePessoaId     Int
-  idEndereco         Int
-  idDadosPessoais    Int
-  AlunoDadosEscolar  AlunoDadosEscolar[]
+  id              Int    @id @default(autoincrement())
+  nome            String
+  tipoDePessoaId  Int
+  idEndereco      Int
+  idDadosPessoais Int
+
   pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("disciplinas")
 }
 
 model Turma {
-  id                 Int                  @id @default(autoincrement())
-  nome               String
-  tipoDePessoaId     Int
-  idEndereco         Int
-  idDadosPessoais    Int
-  AlunoDadosEscolar  AlunoDadosEscolar[]
+  id              Int    @id @default(autoincrement())
+  nome            String
+  tipoDePessoaId  Int
+  idEndereco      Int
+  idDadosPessoais Int
+
   pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("turmas")
@@ -113,7 +107,6 @@ model Horario {
   tipoDePessoaId     Int
   idEndereco         Int
   idDadosPessoais    Int
-  AlunoDadosEscolar  AlunoDadosEscolar[]
   pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("horarios")
@@ -125,7 +118,6 @@ model Presenca {
   tipoDePessoaId     Int
   idEndereco         Int
   idDadosPessoais    Int
-  AlunoDadosEscolar  AlunoDadosEscolar[]
   pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("presencas")
@@ -139,7 +131,6 @@ model Nota {
   tipoDePessoaId     Int
   idEndereco         Int
   idDadosPessoais    Int
-  AlunoDadosEscolar  AlunoDadosEscolar[]
   pessoaDadosEscolar PessoaDadosEscolar[]
 
   @@map("notas")
@@ -147,56 +138,22 @@ model Nota {
 
 //relacionamentos
 
-model AlunoEndereco {
-  id           Int           @id @default(autoincrement())
-  idPessoa     Int?
-  idEndereco   Int?
-  tipodepessoa TipoDePessoa? @relation("tipodepessoa", fields: [idPessoa], references: [id])
-  endereco     Endereco?     @relation("endereco", fields: [idEndereco], references: [id])
-
-  @@map("alunoEndereco")
-}
-
-model AlunoDadosPessoal {
+model PessoaDadosPessoais {
   id                Int             @id @default(autoincrement())
-  tipoDePessoa      TipoDePessoa?   @relation(fields: [tipoDePessoaId], references: [id])
   tipoDePessoaId    Int?
-  dadosDocumentos   DadosDocumento? @relation(fields: [dadosDocumentosId], references: [id])
+  tipoDePessoa      TipoDePessoa?   @relation(fields: [tipoDePessoaId], references: [id])
+  idEndereco        Int?
+  endereco          Endereco?       @relation(fields: [idEndereco], references: [id])
   dadosDocumentosId Int?
+  dadosDocumentos   DadosDocumento? @relation(fields: [dadosDocumentosId], references: [id])
+  idPagto           Int?
+  pagtoMes          PagtoMes?       @relation(fields: [idPagto], references: [id])
 
-  @@map("alunoDadosPessoais")
-}
-
-model AlunoPagto {
-  id             Int          @id @default(autoincrement())
-  tipoDePessoaId Int
-  tipoDePessoa   TipoDePessoa @relation(fields: [tipoDePessoaId], references: [id])
-  idPagto        Int
-  pagtoMes       PagtoMes     @relation(fields: [idPagto], references: [id])
-
-  @@map("alunos_pagtos")
-}
-
-model AlunoDadosEscolar {
-  id           Int          @id @default(autoincrement())
-  idPessoa     Int
-  tipodepessoa TipoDePessoa @relation(fields: [idPessoa], references: [id])
-  idDisciplina Int
-  disciplina   Disciplina   @relation(fields: [idDisciplina], references: [id])
-  idTurma      Int
-  turma        Turma        @relation(fields: [idTurma], references: [id])
-  idHorario    Int
-  horario      Horario      @relation(fields: [idHorario], references: [id])
-  idPresenca   Int?
-  presenca     Presenca?    @relation(fields: [idPresenca], references: [id])
-  idNota       Int?
-  nota         Nota?        @relation(fields: [idNota], references: [id])
-
-  @@map("alunoDadosEscolares")
+  @@map("pessoasDadosPessoais")
 }
 
 model PessoaDadosEscolar {
-  id               Int            @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   tipoDePessoaId   Int
   tipoDePessoa     TipoDePessoa   @relation(fields: [tipoDePessoaId], references: [id])
   idEndereco       Int
@@ -216,6 +173,5 @@ model PessoaDadosEscolar {
   idEspecialidade  Int?
   especialidade    Especilidade?  @relation(fields: [idEspecialidade], references: [id])
 
-  @@id([id])
   @@map("pessoasDadosEscolares")
 }

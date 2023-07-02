@@ -3,19 +3,17 @@ import { prismaClient } from '../../database/prismaClient';
 
 export class DeleteAlunoController {
     async handle(request: Request, response: Response) {
-        const id = request.params;
-        const { status_cadastro } = request.body;
-        const aluno = await prismaClient.alunoDadosPessoal.update({
+        const {id} = request.params;
+        const { statusCadastro } = request.body;
+        const aluno = await prismaClient.pessoaDadosPessoais.update({
             where: {
                 id: Number(id)
             },
             data: {
                 dadosDocumentos: {
                     update: {
-
-                        statusCadastro: status_cadastro,
+                        statusCadastro: statusCadastro,
                         deleted_at: Date.now().toString()
-
                     }
                 }
             },

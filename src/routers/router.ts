@@ -1,32 +1,50 @@
-
-import { CreateAlunoDadosPessoaisController } from "../controllers/pessoas/CreateDadosPessoaisController";
-import { DeleteAlunoController } from "../controllers/pessoas/DeletePessoaController";
-import { FindAllAlunoController } from "../controllers/pessoas/FindAllPessoasController";
-import { FindUniqAlunoController } from "../controllers/pessoas/FindUniqPessoaController";
-import { CreateEnderecoController } from "../controllers/pessoas/CreateEnderecoController";
-import { CreateTipoDePessoaController } from "../controllers/TipoDePessoa/CreateTipoDePessoaController";
 import { Router } from "express";
+import { CreateTipoDePessoaController } from "../controllers/TipoDePessoa/CreateTipoDePessoaController";
+import { CreatePessoaDadosPessoaisController } from "../controllers/pessoas/CreateDadosPessoaisController";
 import { CreatePessoaDadosEscolaresController } from "../controllers/pessoas/CreatePessoaDadosEscolaresController";
+import { FindAllTipoDePessoaController } from "../controllers/TipoDePessoa/FindAllTipoDePessoaController";
+import { FindTipoDePessoaController } from "../controllers/TipoDePessoa/FindTipoDePessoaController";
+import { FindAllPessoasCanceladasController } from "../controllers/TipoDePessoa/FindAllPessoasCanceladasController";
+import { UpdatePessoaDadosEscolaresController } from "../controllers/pessoas/UpdatePessoaDadosEscolaresController";
+import { UpdateEnderecoController } from "../controllers/endereco/UpdateEnderecoController";
+import { UpdateDadosPessoasController } from "../controllers/dadosPessoas/UpdateDadosPessoasController";
+import { DeleteAlunoController } from "../controllers/pessoas/DeletePessoaController";
+import { FindAllDadosEscolaresController } from "../controllers/pessoas/FindAllDadosEscolaresController";
 
 const router = Router();
 
 const createTipoDePessoa = new CreateTipoDePessoaController();
 const createPessoaDadosEscolar = new CreatePessoaDadosEscolaresController();
+const createDadosPessoais = new CreatePessoaDadosPessoaisController();
 
-const createDadosPessoais = new CreateAlunoDadosPessoaisController();
+const FindAllTipoDePessoa = new FindAllTipoDePessoaController();
+const findTipoDePessoa = new FindTipoDePessoaController();
+const findAllCancelados = new FindAllPessoasCanceladasController();
+const findAllDadosEscolar = new FindAllDadosEscolaresController();
+
+const updateDadosDocumentos = new UpdateDadosPessoasController();
+const updateEndereco = new UpdateEnderecoController();
+const updateDadosEscolares = new UpdatePessoaDadosEscolaresController();
+
 const deletePessoa = new DeleteAlunoController();
-const findAllPessoa = new FindAllAlunoController();
-const findUniqPessoa = new FindUniqAlunoController();
-const createEndereco = new CreateEnderecoController();
 
 
 router.post('/tipoDePessoa', createTipoDePessoa.handle);
 router.post('/dadosPessoais', createDadosPessoais.handle);
-router.post('/endereco', createEndereco.handle);
 router.post('/dadosEscolares', createPessoaDadosEscolar.handle);
-router.patch('/pessoa/:id', deletePessoa.handle);
-router.get('/pessoas', findAllPessoa.handle);
-router.get('/pessoa/:id', findUniqPessoa.handle);
+
+router.get('/tipodepessoa/:id', findTipoDePessoa.handle);
+router.get('/tipodepessoa', FindAllTipoDePessoa.handle);
+router.get('/PessoasCanceladas', findAllCancelados.handle);
+router.get('/dadosEscolares', findAllDadosEscolar.handle);
+
+
+router.patch('/dadosDocumentos/:id', updateDadosDocumentos.handle);
+router.patch('/endereco/:id', updateEndereco.handle);
+router.patch('dadosEscolar/:id', updateDadosEscolares.handle);
+
+router.patch('/delete/:id', deletePessoa.handle);
+
 
 
 

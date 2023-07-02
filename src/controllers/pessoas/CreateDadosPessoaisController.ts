@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../database/prismaClient";
+import { Decimal } from "@prisma/client/runtime";
 interface dataBody {
     nome: string,
     Sobrenome: string,
@@ -16,14 +17,15 @@ interface dataBody {
     cidade: string,
     numero: number,
     complemento: string,
-    valor: number,
+    valor: Decimal,
     data_pagto: string,
-    data_vencimento: Date,
+    data_vencimento: string,
     status: boolean,
-    codigoTipoPessoa: number
+    codigoTipoPessoa: number,
+    
 }
 
-export class CreateAlunoDadosPessoaisController {
+export class CreatePessoaDadosPessoaisController {
     async handle(request: Request, response: Response) {
         const {
             nome,
@@ -45,33 +47,60 @@ export class CreateAlunoDadosPessoaisController {
             data_pagto,
             data_vencimento,
             status,
-            codigoTipoPessoa
+            codigoTipoPessoa,
+           
         }: dataBody = request.body;
 
-        const alunoDadosPessoais = await prismaClient.alunoDadosPessoal.create({
+        const alunoDadosPessoais = await prismaClient.endereco.create({
 
             data: {
-                dadosDocumentos: {
+                cep: cep,
+                rua: rua,
+                bairro: bairro,
+                cidade: cidade,
+                numero: numero,
+                complemento: complemento,              
+                pessoaDadosPessoais: {
                     create: {
-                        nome: nome,
-                        Sobrenome: Sobrenome,
-                        email: email,
-                        Cpf: Cpf,
-                        Rg: Rg,
-                        idade: idade,
-                        dataNascimento: data_nascimento,
-                        statusCadastro: status_cadastro,
-                        tel: tel,
-                        deleted_at: '00/00/0000',
-                        tipoDePessoaId: codigoTipoPessoa,
-                    },
-                },
-                tipoDePessoa: {
-                    connect: {
-                        id: codigoTipoPessoa
+                        dadosDocumentos: {
+                            create: {
+                                nome: nome,
+                                Sobrenome: Sobrenome,
+                                email: email,
+                                Cpf: Cpf,
+                                Rg: Rg,
+                                idade: idade,
+                                dataNascimento: data_nascimento,
+                                statusCadastro: status_cadastro,
+                                tel: tel,
+                                deleted_at: '00/00/0000', 
+                            },
+                        },
+                        pagtoMes: {
+                            create: {
+                                valor: valor,
+                                dataPagto: data_pagto,
+                                dataVencimento: data_vencimento,
+                                status: status,                             
+                            },
+                        },
+                        tipoDePessoa: {
+                            connect: {
+                                id: codigoTipoPessoa,
+                            },
+                        },
                     },
                 },
             },
+            include:{
+                pessoaDadosPessoais:{
+                    include:{
+                        tipoDePessoa:true,
+                        dadosDocumentos:true,
+                        pagtoMes:true
+                    }
+                }
+            }
         });
         return response.status(200).json(alunoDadosPessoais);
     };
