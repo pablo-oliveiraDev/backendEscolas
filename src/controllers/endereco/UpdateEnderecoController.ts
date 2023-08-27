@@ -10,27 +10,28 @@ interface updateEnderecoBody {
 };
 export class UpdateEnderecoController {
     async handle(request: Request, response: Response) {
-        const {id} = request.params;
+        const { id } = request.params;
         const {
             cep,
             rua,
             bairro,
             cidade,
             numero,
-            complemento
+            complemento,
         }: updateEnderecoBody = request.body;
         const updateEndereco = await prismaClient.endereco.update({
-           where:{
-            id:Number(id)
-           },
+            where: {
+                id: Number(id)
+            },
             data: {
-                cep:cep,
-                rua:rua,
-                cidade:cidade,
-                numero:numero,
-                complemento:complemento
+                cep: cep,
+                rua: rua,
+                bairro:bairro,
+                cidade: cidade,
+                numero: numero,
+                complemento: complemento
             },
         });
-        return response.status(200).json({msg:"Endereço atualizado Com Sucesso!"});
+        return response.status(200).json({ msg: "Endereço atualizado Com Sucesso!" });
     }
 }

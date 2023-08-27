@@ -21,10 +21,8 @@ interface dataBody {
     data_pagto: string,
     data_vencimento: string,
     status: boolean,
-    codigoTipoPessoa: number,
-    
+    codigoTipoPessoa: number,    
 }
-
 export class CreatePessoaDadosPessoaisController {
     async handle(request: Request, response: Response) {
         const {
@@ -47,12 +45,9 @@ export class CreatePessoaDadosPessoaisController {
             data_pagto,
             data_vencimento,
             status,
-            codigoTipoPessoa,
-           
+            codigoTipoPessoa,           
         }: dataBody = request.body;
-
         const alunoDadosPessoais = await prismaClient.endereco.create({
-
             data: {
                 cep: cep,
                 rua: rua,
@@ -104,4 +99,4 @@ export class CreatePessoaDadosPessoaisController {
         });
         return response.status(200).json(alunoDadosPessoais);
     };
-}
+};

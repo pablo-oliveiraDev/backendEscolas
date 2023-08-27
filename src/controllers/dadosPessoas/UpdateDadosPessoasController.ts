@@ -36,7 +36,7 @@ export class UpdateDadosPessoasController {
                 Cpf: Cpf,
                 Rg: Rg,
                 idade: idade,
-                dataNascimento: data_nascimento,
+                dataNascimento: data_nascimento, 
                 statusCadastro: status_cadastro,
                 tel: tel,
                 deleted_at: '00/00/0000'

@@ -14,7 +14,8 @@ interface pessoaEscolaBody {
     codigoTipoDepessoa: number,
     idEndereco: number,
     idDadosPessoais: number,
-
+    cpf: string,
+    nome: string
 };
 export class CreatePessoaDadosEscolaresController {
     async handle(request: Request, response: Response) {
@@ -31,8 +32,19 @@ export class CreatePessoaDadosEscolaresController {
             desempenho,
             codigoTipoDepessoa,
             idEndereco,
-            idDadosPessoais
+            cpf,
+            nome
+
         }: pessoaEscolaBody = request.body;
+        const idDadosPessoais = await prismaClient.dadosDocumento.findMany({
+            where: {
+                Cpf: cpf,
+                AND: {
+                    nome: nome,
+                },
+            },
+            take: 1
+        });
         const pessoaEscola = await prismaClient.pessoaDadosEscolar.create({
             data: {
                 disciplina: {
@@ -40,7 +52,7 @@ export class CreatePessoaDadosEscolaresController {
                         nome: disciplina,
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
+                        idDadosPessoais: idDadosPessoais[0].id
                     },
                 },
                 especialidade: {
@@ -48,7 +60,7 @@ export class CreatePessoaDadosEscolaresController {
                         especialidade: especialidade,
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
+                        idDadosPessoais: idDadosPessoais[0].id
 
                     },
                 },
@@ -57,7 +69,7 @@ export class CreatePessoaDadosEscolaresController {
                         nome: turma,
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
+                        idDadosPessoais: idDadosPessoais[0].id
 
                     },
                 },
@@ -68,27 +80,11 @@ export class CreatePessoaDadosEscolaresController {
                         horaFim: horaFim,
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
+                        idDadosPessoais: idDadosPessoais[0].id
                     },
                 },
-                presenca: {
-                    create: {
-                        presente: presente,
-                        tipoDePessoaId: codigoTipoDepessoa,
-                        idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
-                    },
-                },
-                nota: {
-                    create: {
-                        bimMod: bimMod,
-                        nota: nota,
-                        desempenho: desempenho,
-                        tipoDePessoaId: codigoTipoDepessoa,
-                        idEndereco: idEndereco,
-                        idDadosPessoais: idDadosPessoais
-                    },
-                },
+              
+           
                 tipoDePessoa: {
                     connect: {
                         id: codigoTipoDepessoa
@@ -101,11 +97,10 @@ export class CreatePessoaDadosEscolaresController {
                 },
                 dadosDocumento: {
                     connect: {
-                        id: idDadosPessoais
+                        id: idDadosPessoais[0].id
                     },
                 },
             },
-
         });
         return response.status(200).json(pessoaEscola);
     }

@@ -52,7 +52,6 @@ export class UpdatePessoaDadosEscolaresController {
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
                         idDadosPessoais: idDadosPessoais
-
                     },
                 },
                 turma: {
@@ -61,7 +60,6 @@ export class UpdatePessoaDadosEscolaresController {
                         tipoDePessoaId: codigoTipoDepessoa,
                         idEndereco: idEndereco,
                         idDadosPessoais: idDadosPessoais
-
                     },
                 },
                 horario: {
