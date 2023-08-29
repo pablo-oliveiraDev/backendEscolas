@@ -40,7 +40,7 @@ describe('UpdateDadosPessoasController', () => {
 
         // Assert that the response json method was called with the expected message
         expect(response.json).toHaveBeenCalledWith({ msg: "Dados atualizados com sucesso!" });
-        console.log(prismaClient.dadosDocumento.update)
+        
         // Assert that the prismaClient.dadosDocumento.update method was called with the correct arguments
         expect(prismaClient.dadosDocumento.update).toHaveBeenCalledWith({
             where: {

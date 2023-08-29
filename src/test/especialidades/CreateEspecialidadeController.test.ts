@@ -39,7 +39,7 @@ it('should create a new especialidade with valid input data', async () => {
   await createEspecialidadeController.handle(request, response);
 
   // Assert
-  console.log(prismaClient.dadosDocumento.findMany)
+ 
   expect(prismaClient.dadosDocumento.findMany).toHaveBeenCalledWith({
     where: {
       nome: 'John Doe',
