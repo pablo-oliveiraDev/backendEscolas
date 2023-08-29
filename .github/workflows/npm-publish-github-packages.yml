@@ -32,7 +32,7 @@ jobs:
     - name: Generate Prisma Code
       run: npx prisma generate
     - name: Run Docker Compose
-      run: docker-compose up -d
+      run: docker-compose up
 
     
     - name: Run Tests
