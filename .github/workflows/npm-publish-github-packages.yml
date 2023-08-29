@@ -26,7 +26,7 @@ jobs:
         cache: 'npm'
     - name: Configurar Variáveis de Ambiente
       run: |
-        echo "DATABASE_URL="postgresql://admin:admin123@localhost:5432/escolas?schema=public"" >> $GITHUB_ENV        
+        echo "DATABASE_URL="postgresql://admin:admin123@localhost:5432/escolas?schema=public" >> $GITHUB_ENV        
     - name: Install Dependencies
       run: npm install
     - name: Generate Prisma Code
