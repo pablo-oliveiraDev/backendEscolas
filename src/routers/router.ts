@@ -8,7 +8,7 @@ import { CreateNotasController } from "../controllers/notas/CreateNotasControlle
 import { CreateEspecialidadeController } from "../controllers/especialidade/CreateEspecialidadeController";
 
 import { FindAllTipoDePessoaController } from "../controllers/TipoDePessoa/FindAllTipoDePessoaController";
-import { FindTipoDePessoaController } from "../controllers/TipoDePessoa/FindTipoDePessoaController";
+import { FindTipoDePessoaByIdController } from "../controllers/TipoDePessoa/FindTipoDePessoaByIdController";
 import { FindAllPessoasCanceladasController } from "../controllers/TipoDePessoa/FindAllPessoasCanceladasController";
 import { FindDadosPessoaByNameController } from "../controllers/pessoas/FindDadosPessoaByNameController";
 import { FindPessoaByCpfController } from "../controllers/pessoas/FindPessoaByCpfController";
@@ -33,7 +33,7 @@ const createEspecialidade = new CreateEspecialidadeController();
 
 
 const FindAllTipoDePessoa = new FindAllTipoDePessoaController();
-const findTipoDePessoa = new FindTipoDePessoaController();
+const findTipoDePessoa = new FindTipoDePessoaByIdController();
 const findAllCancelados = new FindAllPessoasCanceladasController();
 const findAllDadosEscolar = new FindAllDadosEscolaresController();
 const findDadosByName = new FindDadosPessoaByNameController();
@@ -46,7 +46,7 @@ const updateDadosEscolares = new UpdatePessoaDadosEscolaresController();
 const UpdateEspecilidade = new UpdateEspecilidadeContoller();
 
 
-const deletePessoa = new DeleteAlunoController(false);
+const deletePessoa = new DeleteAlunoController(true);
 
 
 router.post('/tipoDePessoa', createTipoDePessoa.handle);

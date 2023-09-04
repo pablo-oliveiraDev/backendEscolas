@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class FindTipoDePessoaController {
+export class FindTipoDePessoaByIdController {
    async handle(request: Request, response: Response) {
       const { id } = request.params;
       const tipoDePessoa = await prismaClient.tipoDePessoa.findUnique({
