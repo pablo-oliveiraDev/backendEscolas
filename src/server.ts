@@ -3,7 +3,7 @@ import cors from "cors";
 import { router } from "./routers/router"
 import { exec } from 'child_process'
 
-const command = 'docker-compose up -d';
+const command = 'npx prisma migrate deploy';
 
 const child = exec(command);
 child.stdout.on('data', (data) => {
