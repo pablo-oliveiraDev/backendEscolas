@@ -2,7 +2,7 @@ import { Router } from "express";
 import { CreateTipoDePessoaController } from "../controllers/TipoDePessoa/CreateTipoDePessoaController";
 import { CreatePessoaDadosPessoaisController } from "../controllers/pessoas/CreateDadosPessoaisController";
 import { CreatePessoaDadosEscolaresController } from "../controllers/pessoas/CreatePessoaDadosEscolaresController";
-import {CreateTurmasController} from "../controllers/Turmas/CreateTurmasController"
+import { CreateTurmasController } from "../controllers/Turmas/CreateTurmasController"
 import { CreatePresencaController } from "../controllers/presenca/CreatePresencaController";
 import { CreateNotasController } from "../controllers/notas/CreateNotasController";
 import { CreateEspecialidadeController } from "../controllers/especialidade/CreateEspecialidadeController";
@@ -38,7 +38,7 @@ const findAllCancelados = new FindAllPessoasCanceladasController();
 const findAllDadosEscolar = new FindAllDadosEscolaresController();
 const findDadosByName = new FindDadosPessoaByNameController();
 const findDadosByCpf = new FindPessoaByCpfController();
-const findAllDados = new FindAllDadosByIdController();
+const findAllDadosById = new FindAllDadosByIdController();
 
 const updateDadosDocumentos = new UpdateDadosPessoasController();
 const updateEndereco = new UpdateEnderecoController();
@@ -46,13 +46,13 @@ const updateDadosEscolares = new UpdatePessoaDadosEscolaresController();
 const UpdateEspecilidade = new UpdateEspecilidadeContoller();
 
 
-const deletePessoa = new DeleteAlunoController();
+const deletePessoa = new DeleteAlunoController(false);
 
 
 router.post('/tipoDePessoa', createTipoDePessoa.handle);
 router.post('/dadosPessoais', createDadosPessoais.handle);
 router.post('/dadosEscolares', createPessoaDadosEscolar.handle);
-router.post('/turmas',createTurmas.handle);
+router.post('/turmas', createTurmas.handle);
 router.post('/presenca', createPresenca.handle);
 router.post('/notas', createNota.handle);
 router.post('/especialidades', createEspecialidade.handle);
@@ -63,13 +63,13 @@ router.get('/PessoasCanceladas', findAllCancelados.handle);
 router.get('/dadosEscolares', findAllDadosEscolar.handle);
 router.get('/dadosPessoaByName', findDadosByName.handle);
 router.get('/dadosPessoaByCpf', findDadosByCpf.handle);
-router.get('/allDados/:id', findAllDados.handle);
+router.get('/allDados/:id', findAllDadosById.handle);
 
 
 router.patch('/dadosDocumentos/:id', updateDadosDocumentos.handle);
 router.patch('/endereco/:id', updateEndereco.handle);
-router.patch('dadosEscolar/:id', updateDadosEscolares.handle);
-router.patch('/especialidade/:id',UpdateEspecilidade.handle);
+router.patch('/dadosEscolar/:id', updateDadosEscolares.handle);
+router.patch('/especialidade/:id', UpdateEspecilidade.handle);
 
 router.patch('/delete/:id', deletePessoa.handle);
 

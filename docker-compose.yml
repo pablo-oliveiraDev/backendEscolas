@@ -25,10 +25,9 @@ services:
 #    volumes:
 #    - ./pgadmin.json:/pgadmin4/servers.json:ro
 
-networks:
-  default:
-    external:
-      name: web
+networks:  
+  external:
+    name: web
 
 volumes:
   postgres:
