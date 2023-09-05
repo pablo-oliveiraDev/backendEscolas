@@ -13,7 +13,7 @@ describe('DeleteAlunoController', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         };
-        const deleteAlunoController = new DeletePessoaController_1.DeleteAlunoController(null);
+        const deleteAlunoController = new DeletePessoaController_1.DeleteAlunoController();
         prismaClient_1.prismaClient.pessoaDadosPessoais.update = jest.fn().mockResolvedValue({});
         await deleteAlunoController.handle(request, response);
         expect(response.status).toHaveBeenCalledWith(200);
@@ -42,7 +42,7 @@ describe('DeleteAlunoController', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         };
-        const deleteAlunoController = new DeletePessoaController_1.DeleteAlunoController(null);
+        const deleteAlunoController = new DeletePessoaController_1.DeleteAlunoController();
         prismaClient_1.prismaClient.pessoaDadosPessoais.update = jest.fn().mockResolvedValue({});
         await deleteAlunoController.handle(request, response);
         expect(response.status).toHaveBeenCalledWith(400);

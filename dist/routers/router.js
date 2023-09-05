@@ -10,7 +10,7 @@ const CreatePresencaController_1 = require("../controllers/presenca/CreatePresen
 const CreateNotasController_1 = require("../controllers/notas/CreateNotasController");
 const CreateEspecialidadeController_1 = require("../controllers/especialidade/CreateEspecialidadeController");
 const FindAllTipoDePessoaController_1 = require("../controllers/TipoDePessoa/FindAllTipoDePessoaController");
-const FindTipoDePessoaController_1 = require("../controllers/TipoDePessoa/FindTipoDePessoaController");
+const FindTipoDePessoaByIdController_1 = require("../controllers/TipoDePessoa/FindTipoDePessoaByIdController");
 const FindAllPessoasCanceladasController_1 = require("../controllers/TipoDePessoa/FindAllPessoasCanceladasController");
 const FindDadosPessoaByNameController_1 = require("../controllers/pessoas/FindDadosPessoaByNameController");
 const FindPessoaByCpfController_1 = require("../controllers/pessoas/FindPessoaByCpfController");
@@ -31,7 +31,7 @@ const createPresenca = new CreatePresencaController_1.CreatePresencaController()
 const createNota = new CreateNotasController_1.CreateNotasController();
 const createEspecialidade = new CreateEspecialidadeController_1.CreateEspecialidadeController();
 const FindAllTipoDePessoa = new FindAllTipoDePessoaController_1.FindAllTipoDePessoaController();
-const findTipoDePessoa = new FindTipoDePessoaController_1.FindTipoDePessoaController();
+const findTipoDePessoa = new FindTipoDePessoaByIdController_1.FindTipoDePessoaByIdController();
 const findAllCancelados = new FindAllPessoasCanceladasController_1.FindAllPessoasCanceladasController();
 const findAllDadosEscolar = new FindAllDadosEscolaresController_1.FindAllDadosEscolaresController();
 const findDadosByName = new FindDadosPessoaByNameController_1.FindDadosPessoaByNameController();
@@ -41,7 +41,7 @@ const updateDadosDocumentos = new UpdateDadosPessoasController_1.UpdateDadosPess
 const updateEndereco = new UpdateEnderecoController_1.UpdateEnderecoController();
 const updateDadosEscolares = new UpdatePessoaDadosEscolaresController_1.UpdatePessoaDadosEscolaresController();
 const UpdateEspecilidade = new UpdateEspecilidadeContoller_1.UpdateEspecilidadeContoller();
-const deletePessoa = new DeletePessoaController_1.DeleteAlunoController(false);
+const deletePessoa = new DeletePessoaController_1.DeleteAlunoController();
 router.post('/tipoDePessoa', createTipoDePessoa.handle);
 router.post('/dadosPessoais', createDadosPessoais.handle);
 router.post('/dadosEscolares', createPessoaDadosEscolar.handle);

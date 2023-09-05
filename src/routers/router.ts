@@ -46,7 +46,7 @@ const updateDadosEscolares = new UpdatePessoaDadosEscolaresController();
 const UpdateEspecilidade = new UpdateEspecilidadeContoller();
 
 
-const deletePessoa = new DeleteAlunoController(true);
+const deletePessoa = new DeleteAlunoController();
 
 
 router.post('/tipoDePessoa', createTipoDePessoa.handle);

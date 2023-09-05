@@ -21,7 +21,7 @@ describe('DeleteAlunoController', () => {
             json: jest.fn()
         } as unknown as Response;
        
-        const deleteAlunoController = new DeleteAlunoController(null);
+        const deleteAlunoController = new DeleteAlunoController();
         prismaClient.pessoaDadosPessoais.update = jest.fn().mockResolvedValue({});       
 
 
@@ -56,7 +56,7 @@ describe('DeleteAlunoController', () => {
             json: jest.fn()
         } as unknown as Response;
 
-        const deleteAlunoController = new DeleteAlunoController(null);
+        const deleteAlunoController = new DeleteAlunoController();
         prismaClient.pessoaDadosPessoais.update = jest.fn().mockResolvedValue({});
 
 
